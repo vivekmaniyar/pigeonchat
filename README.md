@@ -1,0 +1,3 @@
+# Introduction
+
+Pigeonchat is an online chat application that allows users to communicate with each other in real-time over the internet. With pigeonchat, users can send messages, share files, and participate in group conversations with other users. Pigeonchat also offers a range of additional features, including the ability to make video calls and send emojis and other forms of media. Pigeonchat is a user-friendly and intuitive chat application that makes it easy for people to stay connected with their friends, family, and colleagues. Whether you're looking to chat with a small group of friends or to join a larger community conversation, pigeonchat has you covered.

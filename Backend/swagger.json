@@ -1,0 +1,1016 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pigeonchat API",
+        "version": "1.0.0",
+        "description": "API for pigeonchat application",
+        "contact": {
+            "name": "Vivek Maniyar",
+            "email": "vivekmaniyar9601@gmail.com"
+        }
+    },
+    "paths":{
+        "/users/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register a new user",
+                "description": "Register a new user",
+                "operationId": "registerUser",
+                "requestBody": {
+                    "description": "User to register",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/registersuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login a user",
+                "description": "Login a user",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "description": "User to login",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginuser"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loginsuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users?search={search}":{
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Search for a user",
+                "description": "Search for a user",
+                "operationId": "searchUser",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "path",
+                        "description": "Search string",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/searchresult"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/messages":{
+            "post":{
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Send a message",
+                "description": "Send a message",
+                "operationId": "sendMessage",
+                "requestBody": {
+                    "description": "Message to send",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendmessage"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Message sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Message"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/messages/{messageId}":{
+            "put":{
+                "tags":[
+                    "Messages"
+                ],
+                "summary":"Update read status of a message",
+                "description":"Update read status of a message",
+                "operationId":"updateMessage",
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "description": "ID of message to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Message"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/messages/{chatId}":{
+            "get":{
+                "tags":[
+                    "Messages"
+                ],
+                "summary":"Get messages of a chat",
+                "description":"Get messages of a chat",
+                "operationId":"getMessages",
+                "parameters": [
+                    {
+                        "name": "chatId",
+                        "in": "path",
+                        "description": "ID of chat to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Messages returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Message"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/chats":{
+            "post":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Create a new group chat",
+                "description":"Create a new group chat",
+                "operationId":"createChat",
+                "requestBody": {
+                    "description": "Chat to create",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/creategroup"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Chat created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "get":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Get all chats",
+                "description":"Get all chats",
+                "operationId":"getChats",
+                "responses": {
+                    "200": {
+                        "description": "Chats returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/chats/getchat":{
+            "post":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Get a chat",
+                "description":"Get a chat",
+                "operationId":"getChat",
+                "requestBody": {
+                    "description": "Chat to get",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/getchat"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Chat returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "New chat created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/chats/{chatId}":{
+            "post":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Add users to a chat",
+                "description":"Add users to a chat",
+                "operationId":"addUsersToChat",
+                "parameters": [
+                    {
+                        "name": "chatId",
+                        "in": "path",
+                        "description": "ID of chat to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Users to add to chat",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/addUsersToChat"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Users added to chat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Delete group chat",
+                "description":"Delete group chat",
+                "operationId":"deleteChat",
+                "parameters": [
+                    {
+                        "name": "chatId",
+                        "in": "path",
+                        "description": "ID of chat to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Chat deleted"
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Update group chat name",
+                "description":"Update group chat name",
+                "operationId":"updateChat",
+                "parameters": [
+                    {
+                        "name": "chatId",
+                        "in": "path",
+                        "description": "ID of chat to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Chat to update",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateChatName"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Chat name updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/chats/removeuser/{chatId}":{
+            "delete":{
+                "tags":[
+                    "Chats"
+                ],
+                "summary":"Remove user from a chat",
+                "description":"Remove user from a chat",
+                "operationId":"removeUserFromChat",
+                "parameters": [
+                    {
+                        "name": "chatId",
+                        "in": "path",
+                        "description": "ID of chat to return",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User to remove from chat",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RemoveUser"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User removed from chat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Chat"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components":{
+        "schemas":{
+            "error":{
+                "type":"object",
+                "properties":{
+                    "name":{
+                        "type":"string"
+                    },
+                    "message":{
+                        "type":"string"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties":{
+                    "name": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "profileimage": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Message":{
+                "type":"object",
+                "properties":{
+                    "message":{
+                        "type":"string"
+                    },
+                    "sender":{
+                        "$ref":"#/components/schemas/User"
+                    },
+                    "chat":{
+                        "$ref":"#/components/schemas/Chat"
+                    },
+                    "readby":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/components/schemas/User"
+                        }
+                    }
+                }
+            },
+            "Chat":{
+                "type":"object",
+                "properties":{
+                    "chatName":{
+                        "type":"string"
+                    },
+                    "isGroupChat":{
+                        "type":"boolean"
+                    },
+                    "users":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/components/schemas/User"
+                        }
+                    },
+                    "latestMessage":{
+                        "$ref":"#/components/schemas/Message"
+                    },
+                    "groupadmin":{
+                        "$ref":"#/components/schemas/User"
+                    }
+                }
+            },
+            "loginsuccess":{
+                "type":"object",
+                "properties":{
+                    "_id":{
+                        "type":"string"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "username":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "profileimage":{
+                        "type":"string"
+                    },
+                    "token":{
+                        "type":"string"
+                    }
+                }
+            },
+            "registersuccess":{
+                "type":"object",
+                "properties":{
+                    "message":{
+                        "type":"string"
+                    },
+                    "_id":{
+                        "type":"string"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "username":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "profileimage":{
+                        "type":"string"
+                    }
+                    
+                }
+            },
+            "searchresult":{
+                "type":"object",
+                "properties":{
+                    "_id":{
+                        "type":"string"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "username":{
+                        "type":"string"
+                    },
+                    "email":{
+                        "type":"string"
+                    },
+                    "profileimage":{
+                        "type":"string"
+                    }
+                    
+                }
+            },
+            "getchat":{
+                "type":"object",
+                "properties":{
+                    "user":{
+                        "type":"string"
+                    }
+                }
+            },
+            "loginuser":{
+                "type":"object",
+                "properties":{
+                    "username":{
+                        "type":"string"
+                    },
+                    "password":{
+                        "type":"string"
+                    }
+                }
+            },
+            "sendmessage":{
+                "type":"object",
+                "properties":{
+                    "message":{
+                        "type":"string"
+                    },
+                    "receiver":{
+                        "type":"string"
+                    },
+                    "chatId":{
+                        "type":"string"
+                    }
+                }
+            },
+            "creategroup":{
+                "type":"object",
+                "properties":{
+                    "chatName":{
+                        "type":"string"
+                    },
+                    "isGroupChat":{
+                        "type":"boolean"
+                    },
+                    "users":{
+                        "type":"array",
+                        "items":{
+                            "type":"string"
+                        }
+                    }
+                }
+            },
+            "addUsersToChat":{
+                "type":"object",
+                "properties":{
+                    "users":{
+                        "type":"array",
+                        "items":{
+                            "type":"string"
+                        }
+                    }
+                }
+            },
+            "successmessage":{
+                "type":"object",
+                "properties":{
+                    "message":{
+                        "type":"string"
+                    }
+                }
+            },
+            "errormessage":{
+                "type":"object",
+                "properties":{
+                    "message":{
+                        "type":"string"
+                    }
+                }
+            },
+            "UpdateChatName":{
+                "type":"object",
+                "properties":{
+                    "chatName":{
+                        "type":"string"
+                    }
+                }
+            },
+            "RemoveUser":{
+                "type":"object",
+                "properties":{
+                    "user":{
+                        "type":"string"
+                    }
+                }
+            },
+            "updateprop":{
+                "type":"array",
+                "items":{
+                    "type":"object",
+                    "properties":{
+                        "propName":{
+                            "type":"string"
+                        },
+                        "value":{
+                            "type":"string"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "security": [
+            {
+                "bearerAuth": []
+            }
+        ]
+    }
+
+}

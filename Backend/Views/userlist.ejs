@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>List of users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("table tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Navbar with only Logout button at the right corner of the screen -->
+    <nav class="navbar navbar-inverse" style="background-color: #337ab7">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">User Management</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/adminlogout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">List of users</div>
+            <div class="panel-body">
+                <input class="form-control" id="search" type="text" placeholder="Search..">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Block/Unblock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i<users.length; i++) { %>
+                            <tr>
+                                <td><%= users[i].username %></td>
+                                <td><%= users[i].name %></td>
+                                <td><%= users[i].email %></td>
+                                <td>
+                                    <form action="/blockuser" method="post">
+                                        <input type="hidden" name="username" value="<%= users[i].username %>">
+                                        <input type="hidden" name="block" value="<%= users[i].isBlocked %>">
+                                        <input type="submit" value="<%= users[i].isBlocked ? 'Unblock' : 'Block' %>">
+                                    </form>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
